@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     char *palavra, linha[1000]; // linhas a serem lidas do arquivo
     char separador = ',';
 
+    //comentario
+
     if (argc!=3)  //o numero de parametros esperado � 3: nome do programa (argv[0]), nome do arq de entrada(argv[1]), nome do arq de saida(argv[2])
     {
         printf ("N�mero incorreto de par�metros.\n Para chamar o programa digite: exemplo <arq_entrada> <arq_saida>\n");
