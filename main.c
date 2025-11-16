@@ -72,3 +72,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
         return 0;
     }
 }
+
+//to testando o git - bianca
+//ainda não apareceu o M
+//agora foi
