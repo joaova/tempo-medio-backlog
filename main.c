@@ -3,7 +3,7 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
-
+#define MAX 4000
 
 /* Exemplo de uso dos argumentos para main
 O programa l� um arquivo texto como entrada e gera um arquivo como sa�da com o conte�do do arquivo de entrada convertido para letras min�sculas
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     FILE * entrada_usuario;
     FILE * saida;
 
-    char *titulo_jogo, linha[1000]; // linhas a serem lidas do arquivo
+    char *titulo_jogo, *jogo, linha1[MAX], linha2[MAX]; // linhas a serem lidas do arquivo
     float horas;
     char separador = ',';
 
@@ -58,10 +58,15 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
 
             //percorre todo o arquivo lendo linha por linha
-            while (fgets(linha,1000,entrada_dados))
+            while (fgets(linha1,MAX,entrada_dados))
             {
-                titulo_jogo = strtok (linha, separador); //considera qquer caractere n�o alfab�tico como separador
+                titulo_jogo = strtok (linha1, separador); //considera qquer caractere n�o alfab�tico como separador
                 horas = atof(strtok (NULL, separador));
+            }
+
+            while(fgets(linha2,MAX,entrada_usuario))
+            {
+                jogo = strtok (linha2, separador); //considera qquer caractere n�o alfab�tico como separador
             }
 
             printf("\nArquivo %s gerado com sucesso.\n",argv[3]);
