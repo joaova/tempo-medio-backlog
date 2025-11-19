@@ -3,13 +3,15 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
-#define MAX 4000
+#include "abp.c"
+#include "abp.h"
+#include "avl.c"
+#include "avl.h"
+#define ROW_SIZE 100
 
 /* Exemplo de uso dos argumentos para main
 O programa l� um arquivo texto como entrada e gera um arquivo como sa�da com o conte�do do arquivo de entrada convertido para letras min�sculas
 Para chamar, digite "exemplo entrada.txt saida.txt" */
-
-
 
 
 int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv armazena as strings correspondentes aos par�mentros digitados
@@ -23,29 +25,29 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     FILE * entrada_usuario;
     FILE * saida;
 
-    char *titulo_jogo, *jogo, linha1[MAX], linha2[MAX]; // linhas a serem lidas do arquivo
+    char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
     float horas;
     char separador = ',';
 
     //comentario
 
-    if (argc!=4)  //o numero de parametros esperado � 3: nome do programa (argv[0]), nome do arq de entrada(argv[1]), nome do arq de saida(argv[2])
+    if (argc!=4)  //o numero de parametros esperado 4: nome do programa (argv[0]), nome do arq de entrada(argv[1]), nome do arq de saida(argv[2])
     {
-        printf ("N�mero incorreto de par�metros.\n Para chamar o programa digite: exemplo <arq_entrada> <arq_saida>\n");
+        printf ("Numero incorreto de parâmetros.\n Para chamar o programa digite: exemplo <arq_csv> <arq_txt> <arq_saida>\n");
         return 1;
     }
     else
     {
 
-        entrada_dados = fopen (argv[1], "r"); // abre o arquivo para leitura -- argv[1] � o primeiro par�metro ap�s o nome do arquivo.
+        entrada_dados = fopen (argv[1], "r"); // abre o arquivo csv para leitura -- argv[1] é o primeiro arquivo para leitura
         entrada_usuario = fopen (argv[2], "r");
 
-        if (entrada_dados == NULL || entrada_usuario == NULL) //se n�o conseguiu abrir o arquivo
+        if (entrada_dados == NULL || entrada_usuario == NULL) //se não conseguiu abrir o arquivo
         {
             if (entrada_dados == NULL)
-            printf ("Erro ao abrir o arquivo %s",argv[1]);
+                printf ("Erro ao abrir o arquivo %s",argv[1]);
             else
-            printf ("Erro ao abrir o arquivo %s",argv[2]);
+                printf ("Erro ao abrir o arquivo %s",argv[2]);
             return 1;
         }
 
@@ -58,15 +60,22 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
 
             //percorre todo o arquivo lendo linha por linha
-            while (fgets(linha1,MAX,entrada_dados))
+            while (fgets(linha,ROW_SIZE,entrada_dados))
             {
-                titulo_jogo = strtok (linha1, separador); //considera qquer caractere n�o alfab�tico como separador
+                titulo_jogo = strtok (linha, separador); // lê o arquivo csv separando por virgulas
                 horas = atof(strtok (NULL, separador));
+
+                // Escrever aqui o código que popula a árvore
+
+
             }
 
-            while(fgets(linha2,MAX,entrada_usuario))
+            //percorre todo o arquivo lendo linha por linha
+            while(fgets(linha,ROW_SIZE,entrada_usuario))
             {
-                jogo = strtok (linha2, separador); //considera qquer caractere n�o alfab�tico como separador
+                // Aqui não é necessário usar o strtok, porque cada nome do jogo vai estar em uma nova linha
+                // Escrever aqui o código que procura um jogo em determinada árvore
+                // Note que o nome do jogo vai estar salvo na variável 'linha'
             }
 
             printf("\nArquivo %s gerado com sucesso.\n",argv[3]);
