@@ -94,7 +94,7 @@ char* MenorAncestralComum(NodoABP *a, char *nomeA, char *nomeB)
 
 }
 
-NodoABP *InsereArvore(NodoABP *a, char *ch)
+NodoABP* InsereArvore(NodoABP *a, char *ch)
 {
     if (a == NULL)
     {

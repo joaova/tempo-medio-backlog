@@ -26,12 +26,15 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     FILE * saida;
 
     // Cria árvores
-    NodoAVL* raiz_avl = inicializaAVL(raiz_avl);
+    NodoAVL* raiz_avl;
+
+    raiz_avl = inicializaAVL(raiz_avl);
 
     NodoABP* raiz_abp = inicializaABP(raiz_abp);
 
     // Variável de controle da inserção da AVL e contador de rotações
-    int *ok, *rot=0;
+
+    int ok = 0,rot = 0;
 
     char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
     float horas;
@@ -62,23 +65,28 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
         else // arquivo de entrada OK
 
         {
+
+            
+        
             saida = fopen (argv[3], "w"); // abre o arquivo para saida -- argv[2] � o segundo par�metro ap�s o nome do arquivo.
 
             start = clock(); //inicia a contagem do tempo
 
+            
 
             //percorre todo o arquivo lendo linha por linha
             while (fgets(linha,ROW_SIZE,entrada_dados))
             {
+                
                 titulo_jogo = strtok (linha, separador); // lê o arquivo csv separando por virgulas
                 horas = atof(strtok (NULL, separador));
 
                 // Escrever aqui o código que popula a árvore
-                raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, ok, rot);
+                raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, &ok, &rot);
 
             }
 
-            printf("Total de rotacoes: %d\n", *rot);
+            printf("Numero de rotacoes: %d\n", rot);
 
             //percorre todo o arquivo lendo linha por linha
             while(fgets(linha,ROW_SIZE,entrada_usuario))
@@ -86,6 +94,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 // Aqui não é necessário usar o strtok, porque cada nome do jogo vai estar em uma nova linha
                 // Escrever aqui o código que procura um jogo em determinada árvore
                 // Note que o nome do jogo vai estar salvo na variável 'linha'
+
+                
             }
 
             printf("\nArquivo %s gerado com sucesso.\n",argv[3]);

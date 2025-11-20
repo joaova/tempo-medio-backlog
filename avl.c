@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "avl.h"
 
 NodoAVL* inicializaAVL(NodoAVL *a)
@@ -118,16 +119,20 @@ NodoAVL* rotacao_dupla_esquerda (NodoAVL *p) {
 
 NodoAVL* InsereAVL (NodoAVL *a, char *x, float horas, int *ok, int *rot)
 {
+
+    
     /* Insere nodo em uma árvore AVL, onde A representa a raiz da árvore,
     x, a chave a ser inserida e h a altura da árvore */
     if (a == NULL) {
+        
         a = (NodoAVL*) malloc(sizeof(NodoAVL));
-        a->nome = x;
+        strcpy(a->nome,x);
         a->horas = horas;
         a->esq = NULL;
         a->dir = NULL;
         a->FB = 0;
         *ok = 1;
+
     }
 
     else if (strcmp(x, a->nome) < 0) {
@@ -140,7 +145,7 @@ NodoAVL* InsereAVL (NodoAVL *a, char *x, float horas, int *ok, int *rot)
             {
                 case -1: a->FB = 0; *ok = 0; break;
                 case 0: a->FB = 1; break;
-                case 1: a=Caso1(a,ok); *rot++; break;
+                case 1: (*rot)++; a=Caso1(a,ok); break;
             }
         }
     }
@@ -155,12 +160,12 @@ NodoAVL* InsereAVL (NodoAVL *a, char *x, float horas, int *ok, int *rot)
             {
                 case 1: a->FB = 0; *ok = 0; break;
                 case 0: a->FB = -1; break;
-                case -1: a = Caso2(a,ok); *rot++; break;
+                case -1: (*rot)++; a = Caso2(a,ok); break;
             }
         }
 
     }
-    
+
     return a;
 
 }
