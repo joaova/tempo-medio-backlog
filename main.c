@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     FILE * entrada_usuario;
     FILE * saida;
 
+    
+
     // Cria árvores
     NodoAVL* raiz_avl = inicializaAVL(raiz_avl);
     NodoAVL* achado_avl = inicializaAVL(achado_avl);
@@ -93,7 +95,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             {
                 achado_abp = consultaABP(raiz_abp, linha);
                 achado_avl = consultaAVL(raiz_avl, linha);
-                
+        
                 soma_abp += achado_abp->horas;
                 soma_avl += achado_avl->horas;
                

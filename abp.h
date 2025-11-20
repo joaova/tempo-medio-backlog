@@ -1,7 +1,7 @@
 #ifndef HEADERFILE_H
 #define HEADERFILE_H
 
-int comp1 = 0;
+extern int comp1;
 
 typedef struct NodoABP {
  char *nome;

@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include "abp.h"
+
+int comp1 = 0;
 
 NodoABP* inicializaABP(NodoABP *a)
 {
     return NULL;
 }
 
-int ContaNodos(NodoABP *a)
+int ContaNodosABP(NodoABP *a)
 {
     int dir, esq;
 
@@ -18,7 +22,7 @@ int ContaNodos(NodoABP *a)
 
     else
     {
-        return 1 + ContaNodos(a->esq) + ContaNodos(a->dir);
+        return 1 + ContaNodosABP(a->esq) + ContaNodosABP(a->dir);
 
     }
 
@@ -33,7 +37,7 @@ void imprimeArvoreABP(NodoABP *a, int nivel)
     {
         for(int i = 0; i < nivel; i++)
             printf("=");
-        printf("%d\n", a->nome);
+        printf("%s\n", a->nome);
         nivel++;
         imprimeArvoreABP(a->esq, nivel);
         imprimeArvoreABP(a->dir, nivel);
@@ -112,13 +116,33 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 }
 
 
-NodoABP* consultaABP(NodoABP *a, char *chave){ 
-    while (a != NULL){ 
-        comp1++; 
-        if (!strcmp(a->nome, chave)){ 
+NodoABP* consultaABP(NodoABP *a, char *chave)
+{
+    int i = 0;
+    int j = 0;
+    char chaveUpper[100] = {0}, nomeUpper[100]  = {0};
+    int cmp;
+
+
+    while (a != NULL) {
+
+        cmp = strcmp(nomeUpper, chaveUpper);
+
+        while (chave[i] != '\0') {
+            chaveUpper[i] = toupper(chave[i]); // Converte o caractere na posição i
+            i++;
+        }
+
+        while (a->nome[j] != '\0') {
+            nomeUpper[j] = toupper(a->nome[j]); // Converte o caractere na posição i
+            j++;
+        }
+
+        comp1++;
+        if (cmp == 0){ 
             return a;  
         } else { 
-            if (strcmp(a->nome, chave) > 0) 
+            if (cmp > 0) 
                 a = a->esq; 
             else 
                 a = a->dir; 
