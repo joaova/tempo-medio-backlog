@@ -27,14 +27,17 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
     // Cria árvores
     NodoAVL* raiz_avl = inicializaAVL(raiz_avl);
+    NodoAVL* achado_avl = inicializaAVL(achado_avl);
 
     NodoABP* raiz_abp = inicializaABP(raiz_abp);
+    NodoABP* achado_abp = inicializaABP(achado_abp);
 
     // Variável de controle da inserção da AVL e contador de rotações
     int *ok, *rot=0;
 
     char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
-    float horas;
+    float horas = 0;
+    float soma_abp = 0, soma_avl = 0;
     char *separador = ",";
 
     //comentario
@@ -75,6 +78,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
                 // Escrever aqui o código que popula a árvore
                 raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, ok, rot);
+                raiz_abp = InsereArvore(raiz_abp, titulo_jogo, horas);
 
             }
 
@@ -83,10 +87,22 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             //percorre todo o arquivo lendo linha por linha
             while(fgets(linha,ROW_SIZE,entrada_usuario))
             {
+                achado_abp = consultaABP(raiz_abp, linha);
+                achado_avl = consultaAVL(raiz_avl, linha);
+                
+                soma_abp += achado_abp->horas;
+                soma_avl += achado_avl->horas;
+               
                 // Aqui não é necessário usar o strtok, porque cada nome do jogo vai estar em uma nova linha
                 // Escrever aqui o código que procura um jogo em determinada árvore
                 // Note que o nome do jogo vai estar salvo na variável 'linha'
             }
+
+            printf("Total de comparações ABP: %d\n", comp1);
+            printf("Total de comparações AVL: %d\n", comp2);
+
+            if(soma_abp == soma_avl)
+                printf("A soma das horas é: %.2f\n", soma_abp);
 
             printf("\nArquivo %s gerado com sucesso.\n",argv[3]);
 

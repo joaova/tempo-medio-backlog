@@ -254,6 +254,21 @@ void FBArvore(NodoAVL *a, int *maior)
 
 }
 
+NodoAVL* consultaAVL(NodoAVL *a, char *chave){ 
+    while (a != NULL){ 
+        comp2++; 
+        if (!strcmp(a->nome, chave)){ 
+            return a;  
+        } else { 
+            if (strcmp(a->nome, chave) > 0) 
+                a = a->esq; 
+            else 
+                a = a->dir; 
+        } 
+    } 
+    return NULL;  
+}
+
 /*
 NodoAVL* RemoveAVL (int X, NodoAVL* T )
 {

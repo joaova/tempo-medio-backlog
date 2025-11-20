@@ -94,19 +94,35 @@ char* MenorAncestralComum(NodoABP *a, char *nomeA, char *nomeB)
 
 }
 
-NodoABP *InsereArvore(NodoABP *a, char *ch)
+NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 {
     if (a == NULL)
     {
         a = (NodoABP *)malloc(sizeof(NodoABP));
         a->nome = ch;
+        a->horas = horas;
         a->esq = NULL;
         a->dir = NULL;
     }
     else if (strcmp(ch, a->nome) < 0)
-        a->esq = InsereArvore(a->esq, ch);
+        a->esq = InsereArvore(a->esq, ch, horas);
     else
-        a->dir = InsereArvore(a->dir, ch);
+        a->dir = InsereArvore(a->dir, ch, horas);
     return a;
 }
 
+
+NodoABP* consultaABP(NodoABP *a, char *chave){ 
+    while (a != NULL){ 
+        comp1++; 
+        if (!strcmp(a->nome, chave)){ 
+            return a;  
+        } else { 
+            if (strcmp(a->nome, chave) > 0) 
+                a = a->esq; 
+            else 
+                a = a->dir; 
+        } 
+    } 
+    return NULL;  
+}
