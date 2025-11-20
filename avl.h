@@ -1,6 +1,8 @@
 #ifndef HEADERFILE_AVL_H
 #define HEADERFILE_AVL_H
 
+int comp2 = 0;
+
 typedef struct NodoAVL {
     char nome[100];
     float horas;
@@ -24,7 +26,7 @@ NodoAVL* RemoveAVL (int X, NodoAVL* T );
 int Altura (NodoAVL *a);
 void FBArvore(NodoAVL *a, int *maior);
 int FBNodo(NodoAVL *a);
-void test();
+NodoAVL* consultaAVL(NodoAVL *a, char *chave);
 
 
 #endif
