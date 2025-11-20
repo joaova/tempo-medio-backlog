@@ -4,7 +4,7 @@
 int comp2 = 0;
 
 typedef struct NodoAVL {
-    char *nome;
+    char nome[100];
     float horas;
     int FB;
     struct NodoAVL *esq;

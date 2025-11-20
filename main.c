@@ -33,7 +33,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     NodoABP* achado_abp = inicializaABP(achado_abp);
 
     // Variável de controle da inserção da AVL e contador de rotações
-    int *ok, *rot=0;
+
+    int ok = 0,rot = 0;
 
     char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
     float horas = 0;
@@ -47,6 +48,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
         printf ("Numero incorreto de parâmetros.\n Para chamar o programa digite: exemplo <arq_csv> <arq_txt> <arq_saida>\n");
         return 1;
     }
+
     else
     {
 
@@ -63,26 +65,28 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
         }
 
         else // arquivo de entrada OK
-
         {
+
             saida = fopen (argv[3], "w"); // abre o arquivo para saida -- argv[2] � o segundo par�metro ap�s o nome do arquivo.
 
             start = clock(); //inicia a contagem do tempo
 
+            
 
             //percorre todo o arquivo lendo linha por linha
             while (fgets(linha,ROW_SIZE,entrada_dados))
             {
+                
                 titulo_jogo = strtok (linha, separador); // lê o arquivo csv separando por virgulas
                 horas = atof(strtok (NULL, separador));
 
                 // Escrever aqui o código que popula a árvore
-                raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, ok, rot);
+                raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, &ok, &rot);
                 raiz_abp = InsereArvore(raiz_abp, titulo_jogo, horas);
 
             }
 
-            printf("Total de rotacoes: %d\n", *rot);
+            printf("Numero de rotacoes: %d\n", rot);
 
             //percorre todo o arquivo lendo linha por linha
             while(fgets(linha,ROW_SIZE,entrada_usuario))
@@ -96,6 +100,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 // Aqui não é necessário usar o strtok, porque cada nome do jogo vai estar em uma nova linha
                 // Escrever aqui o código que procura um jogo em determinada árvore
                 // Note que o nome do jogo vai estar salvo na variável 'linha'
+
+                
             }
 
             printf("Total de comparações ABP: %d\n", comp1);
