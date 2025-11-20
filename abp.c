@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "abp.h"
 
-NodoABP* inicializa(NodoABP *a)
+NodoABP* inicializaABP(NodoABP *a)
 {
     return NULL;
 }
@@ -24,7 +24,7 @@ int ContaNodos(NodoABP *a)
 
 }
 
-void imprimeArvore(NodoABP *a, int nivel)
+void imprimeArvoreABP(NodoABP *a, int nivel)
 {
 
     //int nivel_local = nivel;
@@ -35,13 +35,13 @@ void imprimeArvore(NodoABP *a, int nivel)
             printf("=");
         printf("%d\n", a->nome);
         nivel++;
-        imprimeArvore(a->esq, nivel);
-        imprimeArvore(a->dir, nivel);
+        imprimeArvoreABP(a->esq, nivel);
+        imprimeArvoreABP(a->dir, nivel);
     }
 
 }
 
-int AchaNivel(NodoABP *a, int k, int nivel)
+int AchaNivel(NodoABP *a, char* nome, int nivel)
 {
     
     if(a == NULL)
@@ -51,40 +51,40 @@ int AchaNivel(NodoABP *a, int k, int nivel)
     {
 
 
-        if(a->nome == k)
+        if(strcmp(a->nome, nome) == 0)
             return nivel;
 
         nivel++;
 
-        if(a->nome < k)
+        if(strcmp(a->nome, nome) < 0)
         {
-            return AchaNivel(a->dir, k, nivel);
+            return AchaNivel(a->dir, nome, nivel);
         }
 
-        else if(a->nome > k)
+        else if(strcmp(a->nome, nome) > 0)
         {
-            return AchaNivel(a->esq, k, nivel);
+            return AchaNivel(a->esq, nome, nivel);
         }  
 
     }
 
 }
 
-int MenorAncestralComum(NodoABP *a, int c1, int c2)
+char* MenorAncestralComum(NodoABP *a, char *nomeA, char *nomeB)
 {
     
 
     if(a!=NULL)
     {
 
-        if(c1 > a->nome && c2 > a->nome)
+        if((strcmp(nomeA, a->nome) > 0) && (strcmp(nomeB, a->nome) > 0))
         {
-            return MenorAncestralComum(a->dir, c1, c2);
+            return MenorAncestralComum(a->dir, nomeA, nomeB);
         }
 
-        else if(c1 < a->nome && c2 < a->nome)
+        else if((strcmp(nomeA, a->nome) < 0) && (strcmp(nomeB, a->nome) < 0))
         {
-            return MenorAncestralComum(a->esq, c1, c2);
+            return MenorAncestralComum(a->esq, nomeA, nomeB);
         }  
 
         else
@@ -94,7 +94,7 @@ int MenorAncestralComum(NodoABP *a, int c1, int c2)
 
 }
 
-NodoABP *InsereArvore(NodoABP *a, int ch)
+NodoABP *InsereArvore(NodoABP *a, char *ch)
 {
     if (a == NULL)
     {
@@ -103,19 +103,10 @@ NodoABP *InsereArvore(NodoABP *a, int ch)
         a->esq = NULL;
         a->dir = NULL;
     }
-    else if (ch < a->nome)
+    else if (strcmp(ch, a->nome) < 0)
         a->esq = InsereArvore(a->esq, ch);
     else
         a->dir = InsereArvore(a->dir, ch);
     return a;
 }
 
-void PreFixado(NodoABP *a)
-{
-    if (a != NULL)
-    {
-        printf("%d\n", a->nome);
-        PreFixado(a->esq);
-        PreFixado(a->dir);
-    }
-}

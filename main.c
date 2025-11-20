@@ -25,9 +25,17 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     FILE * entrada_usuario;
     FILE * saida;
 
+    // Cria árvores
+    NodoAVL* raiz_avl = inicializaAVL(raiz_avl);
+
+    NodoABP* raiz_abp = inicializaABP(raiz_abp);
+
+    // Variável de controle da inserção da AVL e contador de rotações
+    int *ok, *rot=0;
+
     char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
     float horas;
-    char separador = ',';
+    char *separador = ",";
 
     //comentario
 
@@ -66,9 +74,11 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 horas = atof(strtok (NULL, separador));
 
                 // Escrever aqui o código que popula a árvore
-
+                raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, ok, rot);
 
             }
+
+            printf("Total de rotacoes: %d\n", *rot);
 
             //percorre todo o arquivo lendo linha por linha
             while(fgets(linha,ROW_SIZE,entrada_usuario))

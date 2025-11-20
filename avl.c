@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include "avl.h"
 
-NodoAVL* inicializa(NodoAVL *a)
+NodoAVL* inicializaAVL(NodoAVL *a)
 {
     return NULL;
 }
 
-int ContaNodos(NodoAVL *a)
+int ContaNodosAVL(NodoAVL *a)
 {
     int dir, esq;
 
@@ -18,29 +18,13 @@ int ContaNodos(NodoAVL *a)
 
     else
     {
-        return 1 + ContaNodos(a->esq) + ContaNodos(a->dir);
+        return 1 + ContaNodosAVL(a->esq) + ContaNodosAVL(a->dir);
 
     }
 
 }
 
-NodoAVL *InsereArvore(NodoAVL *a, int ch)
-{
-    if (a == NULL)
-    {
-        a = (NodoAVL *)malloc(sizeof(NodoAVL));
-        a->nome = ch;
-        a->esq = NULL;
-        a->dir = NULL;
-    }
-    else if (ch < a->nome)
-        a->esq = InsereArvore(a->esq, ch);
-    else
-        a->dir = InsereArvore(a->dir, ch);
-    return a;
-}
-
-void imprimeArvore(NodoAVL *a, int nivel)
+void imprimeArvoreAVL(NodoAVL *a, int nivel)
 {
 
     int nivel_local = nivel;
@@ -51,20 +35,10 @@ void imprimeArvore(NodoAVL *a, int nivel)
             printf("=");
         printf("%d\n", a->nome);
         nivel_local++;
-        imprimeArvore(a->esq, nivel_local);
-        imprimeArvore(a->dir, nivel_local);
+        imprimeArvoreAVL(a->esq, nivel_local);
+        imprimeArvoreAVL(a->dir, nivel_local);
     }
 
-}
-
-void PreFixado(NodoAVL *a)
-{
-    if (a != NULL)
-    {
-        printf("%d\n", a->nome);
-        PreFixado(a->esq);
-        PreFixado(a->dir);
-    }
 }
 
 NodoAVL* rotacao_direita(NodoAVL* p) {
@@ -142,22 +116,23 @@ NodoAVL* rotacao_dupla_esquerda (NodoAVL *p) {
     return p;
 }
 
-NodoAVL* InsereAVL (NodoAVL *a, int x, int *ok)
+NodoAVL* InsereAVL (NodoAVL *a, char *x, float horas, int *ok, int *rot)
 {
     /* Insere nodo em uma árvore AVL, onde A representa a raiz da árvore,
     x, a chave a ser inserida e h a altura da árvore */
     if (a == NULL) {
         a = (NodoAVL*) malloc(sizeof(NodoAVL));
         a->nome = x;
+        a->horas = horas;
         a->esq = NULL;
         a->dir = NULL;
         a->FB = 0;
         *ok = 1;
     }
 
-    else if (x < a->nome) {
+    else if (strcmp(x, a->nome) < 0) {
 
-        a->esq = InsereAVL(a->esq,x,ok);
+        a->esq = InsereAVL(a->esq,x,horas,ok, rot);
         
         if (*ok) {
 
@@ -165,14 +140,14 @@ NodoAVL* InsereAVL (NodoAVL *a, int x, int *ok)
             {
                 case -1: a->FB = 0; *ok = 0; break;
                 case 0: a->FB = 1; break;
-                case 1: a=Caso1(a,ok); break;
+                case 1: a=Caso1(a,ok); *rot++; break;
             }
         }
     }
 
     else 
     {
-        a->dir = InsereAVL(a->dir,x,ok);
+        a->dir = InsereAVL(a->dir,x,horas,ok, rot);
 
         if (*ok) 
         {
@@ -180,7 +155,7 @@ NodoAVL* InsereAVL (NodoAVL *a, int x, int *ok)
             {
                 case 1: a->FB = 0; *ok = 0; break;
                 case 0: a->FB = -1; break;
-                case -1: a = Caso2(a,ok); break;
+                case -1: a = Caso2(a,ok); *rot++; break;
             }
         }
 
@@ -279,16 +254,7 @@ void FBArvore(NodoAVL *a, int *maior)
 
 }
 
-void populaArvore(NodoAVL **a, int vec[], int n)
-{
-
-    for(int i = 0; i < n; i++)
-    {
-        *a = InsereArvore(*a, vec[i]);
-    }
-}
-
-// TODO
+/*
 NodoAVL* RemoveAVL (int X, NodoAVL* T )
 {
     NodoAVL* TmpCell;
@@ -296,35 +262,34 @@ NodoAVL* RemoveAVL (int X, NodoAVL* T )
     if( T == NULL )
         printf( "Elemento nao encontrado.\n" );
 
-    else if( X < T->nome ) /* vai para a subarvore esquerda */
+    else if( X < T->nome ) // vai para a subarvore esquerda 
         T->esq = RemoveAVL( X, T->esq );
 
-    else if( X > T->nome ) /* vai para a subarvore direita */
+    else if( X > T->nome ) // vai para a subarvore direita 
         T->dir = RemoveAVL( X, T->dir );
 
-    else  /* achou o elemento a ser removido */
+    else  // achou o elemento a ser removido 
 
-        if( T->esq && T->dir )  /* o elemento tem as 2 subarvores */
+        if( T->esq && T->dir )  // o elemento tem as 2 subarvores 
         {
-            /* substitui pelo maior valor da sub�rvore esquerda */
+            // substitui pelo maior valor da sub�rvore esquerda 
             TmpCell = Maior( T->esq );
             T->nome = TmpCell->nome;
             T->esq = RemoveAVL( T->nome, T->esq );
         }
 
-        else  /* uma ou nenhuma sub-�rvore */
+        else  // uma ou nenhuma sub-�rvore 
         {
             TmpCell = T;
-            if( T->esq == NULL ) /* substitui pelo filho dir -- se n�o tiver filhos, substitui por NULL*/
+            if( T->esq == NULL ) // substitui pelo filho dir -- se n�o tiver filhos, substitui por NULL
                 T = T->dir;
 
             else if( T->dir == NULL )
-                T = T->esq; /*substitui pelo filho esq*/
+                T = T->esq; //substitui pelo filho esq
 
             free( TmpCell );
         }
 
     return T;
 }
-
-
+*/
