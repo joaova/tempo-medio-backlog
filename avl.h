@@ -1,7 +1,7 @@
 #ifndef HEADERFILE_AVL_H
 #define HEADERFILE_AVL_H
 
-int comp2 = 0;
+extern int comp2;
 
 typedef struct NodoAVL {
     char nome[100];

@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "avl.h"
+
+int comp2 = 0;
 
 NodoAVL* inicializaAVL(NodoAVL *a)
 {
@@ -34,7 +37,7 @@ void imprimeArvoreAVL(NodoAVL *a, int nivel)
     {
         for(int i = 0; i < nivel; i++)
             printf("=");
-        printf("%d\n", a->nome);
+        printf("%s\n", a->nome);
         nivel_local++;
         imprimeArvoreAVL(a->esq, nivel_local);
         imprimeArvoreAVL(a->dir, nivel_local);
@@ -260,12 +263,31 @@ void FBArvore(NodoAVL *a, int *maior)
 }
 
 NodoAVL* consultaAVL(NodoAVL *a, char *chave){ 
+    int i = 0;
+    int j = 0;
+    char chaveUpper[100] = {0}, nomeUpper[100] = {0};
+    int cmp;
+
+
     while (a != NULL){ 
+
+         while (chave[i] != '\0') {
+            chaveUpper[i] = toupper(chave[i]); // Converte o caractere na posição i
+            i++;
+        }
+
+        while (a->nome[j] != '\0') {
+            nomeUpper[j] = toupper(a->nome[j]); // Converte o caractere na posição i
+            j++;
+        }
+
+        cmp = strcmp(nomeUpper, chaveUpper);
+
         comp2++; 
-        if (!strcmp(a->nome, chave)){ 
+        if (cmp == 0){ 
             return a;  
         } else { 
-            if (strcmp(a->nome, chave) > 0) 
+            if (cmp > 0) 
                 a = a->esq; 
             else 
                 a = a->dir; 
