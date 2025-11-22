@@ -112,13 +112,20 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 achado_abp = consultaABP(raiz_abp, linha);
 
                 if(achado_abp)
+                {
                     soma_abp += achado_abp->horas;
+                    printf("%f\n", achado_abp->horas);
+                }
 
 
                 achado_avl = consultaAVL(raiz_avl, linha);
 
                 if(achado_avl)
+                {
                     soma_avl += achado_avl->horas;
+                    printf("%f\n", achado_avl->horas);
+                }
+                    
 
                 
             }
