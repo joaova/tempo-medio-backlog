@@ -119,23 +119,30 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 NodoABP* consultaABP(NodoABP *a, char *chave)
 {
 
-    char auxName[100];
+    int i = 0;
+
+    char auxNome[100];
 
     printf("---------------------------------ABP-------------------------------\n");
 
     while(a != NULL) {
 
-        strcpy(auxName,strupr(a->nome));
+        strcpy(auxNome, a->nome);
 
-        printf("%s\n", auxName);
+        while (auxNome[i] != '\0') {
+            auxNome[i] = toupper(auxNome[i]); // Converte o caractere na posição i
+            i++;
+        }
+
+        printf("%s\n", auxNome);
         printf("%s\n", chave);
 
         comp1++;
 
-        if(!strcmp(auxName, chave)) {
+        if(!strcmp(auxNome, chave)) {
             return a;
         } else {
-            if(strcmp(auxName, chave) > 0)
+            if(strcmp(auxNome, chave) > 0)
                 a = a->esq;
             else
                 a = a->dir;
