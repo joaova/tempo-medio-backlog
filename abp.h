@@ -4,7 +4,7 @@
 extern int comp1;
 
 typedef struct NodoABP {
- char *nome;
+ char nome[100];
  float horas;
  struct NodoABP *esq;
  struct NodoABP *dir;

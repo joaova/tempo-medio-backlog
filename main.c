@@ -17,7 +17,7 @@ Para chamar, digite "exemplo entrada.txt saida.txt" */
 int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv armazena as strings correspondentes aos par�mentros digitados
 {
 
-    setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
+    //setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
 
     clock_t start, end; //para contar o tempo decorrido
 
@@ -72,9 +72,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             saida = fopen (argv[3], "w"); // abre o arquivo para saida -- argv[2] � o segundo par�metro ap�s o nome do arquivo.
 
             start = clock(); //inicia a contagem do tempo
-
             
-
             //percorre todo o arquivo lendo linha por linha
             while (fgets(linha,ROW_SIZE,entrada_dados))
             {
@@ -82,10 +80,11 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 titulo_jogo = strtok (linha, separador); // lê o arquivo csv separando por virgulas
 
                 // O atof provavelmente tá arredondando as horas, verificar isso
-                horas = atof(strtok (NULL, separador));
+                horas = strtof(strtok (NULL, separador), NULL);
 
                 // Escrever aqui o código que popula a árvore
                 raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, &ok, &rot);
+
                 raiz_abp = InsereArvore(raiz_abp, titulo_jogo, horas);
 
             }

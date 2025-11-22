@@ -103,15 +103,18 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
     if (a == NULL)
     {
         a = (NodoABP *)malloc(sizeof(NodoABP));
-        a->nome = ch;
+        strcpy(a->nome, ch);
         a->horas = horas;
         a->esq = NULL;
         a->dir = NULL;
     }
+
     else if (strcmp(ch, a->nome) < 0)
         a->esq = InsereArvore(a->esq, ch, horas);
+
     else
         a->dir = InsereArvore(a->dir, ch, horas);
+
     return a;
 }
 
@@ -119,13 +122,15 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 NodoABP* consultaABP(NodoABP *a, char *chave)
 {
 
-    int i = 0;
-
     char auxNome[100];
+
+    int i = 0;
 
     printf("---------------------------------ABP-------------------------------\n");
 
     while(a != NULL) {
+
+        i = 0;
 
         strcpy(auxNome, a->nome);
 
