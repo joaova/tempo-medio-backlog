@@ -17,5 +17,6 @@ void imprimeArvoreABP(NodoABP *a, int nivel);
 int AchaNivel(NodoABP *a, char* nome, int nivel);
 char* MenorAncestralComum(NodoABP *a, char *nomeA, char *nomeB);
 NodoABP* consultaABP(NodoABP *a, char *chave);
+int AlturaABP (NodoABP *a);
 
 #endif

@@ -220,7 +220,7 @@ NodoAVL* Maior( NodoAVL* r )
     return r;
 }
 
-int Altura (NodoAVL *a){
+int AlturaAVL (NodoAVL *a){
 
     int Alt_Esq, Alt_Dir;
 
@@ -229,8 +229,8 @@ int Altura (NodoAVL *a){
 
     else
     {
-        Alt_Esq = Altura (a->esq);
-        Alt_Dir = Altura (a->dir);
+        Alt_Esq = AlturaAVL (a->esq);
+        Alt_Dir = AlturaAVL (a->dir);
 
         if (Alt_Esq > Alt_Dir)
             return (1 + Alt_Esq);
@@ -244,7 +244,7 @@ int Altura (NodoAVL *a){
 int FBNodo(NodoAVL *a)
 {
 
-    return abs(Altura(a->esq) - Altura(a->dir));
+    return abs(AlturaAVL(a->esq) - AlturaAVL(a->dir));
 
 }
 

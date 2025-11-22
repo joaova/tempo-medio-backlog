@@ -156,5 +156,25 @@ NodoABP* consultaABP(NodoABP *a, char *chave)
     }
 
     return NULL;
-   
 }
+
+int AlturaABP (NodoABP *a){
+
+    int Alt_Esq, Alt_Dir;
+
+    if (a == NULL)
+        return 0;
+
+    else
+    {
+        Alt_Esq = AlturaABP (a->esq);
+        Alt_Dir = AlturaABP (a->dir);
+
+        if (Alt_Esq > Alt_Dir)
+            return (1 + Alt_Esq);
+
+        else
+            return (1 + Alt_Dir);
+    }   
+}
+ 

@@ -129,15 +129,24 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 
             }
 
+            if(soma_abp == soma_avl) 
+            {
+                fprintf(saida,"Tempo total estimado: %.2f horas\n\n", soma_abp);
 
-            printf("Total de comparações ABP: %d\n", comp1);
-            printf("Total de comparações AVL: %d\n", comp2);
-            printf("Total de horas pela ABP: %f\n", soma_abp);
-            printf("Total de horas pela AVL: %f\n", soma_avl);
+                fprintf(saida,"================ ESTATÍSTICAS ABP ================== \n");
+                fprintf(saida,"Número de nodos: %d\n", ContaNodosABP(raiz_abp));
+                fprintf(saida,"Altura: %d\n",AlturaABP(raiz_abp));
+                fprintf(saida,"Rotações: 0\n");
+                fprintf(saida,"Comparações: %d\n\n", comp1);
+                
+                fprintf(saida,"================ ESTATÍSTICAS AVL ================== \n");
+                fprintf(saida,"Número de nodos: %d\n", ContaNodosAVL(raiz_avl));
+                fprintf(saida,"Altura: %d\n",AlturaAVL(raiz_avl));
+                fprintf(saida,"Rotações: %d\n", rot);
+                fprintf(saida,"Comparações: %d\n", comp2);
 
-            if(soma_abp == soma_avl)
-                printf("A soma das horas é: %.2f\n", soma_abp);
-
+            }
+                
             printf("\nArquivo %s gerado com sucesso.\n",argv[3]);
 
             end = clock(); // finaliza contagem do tempo

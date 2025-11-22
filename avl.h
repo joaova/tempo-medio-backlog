@@ -23,7 +23,7 @@ NodoAVL* Caso1 (NodoAVL *a , int *ok);
 NodoAVL* Caso2 (NodoAVL *a , int *ok);
 NodoAVL* Maior( NodoAVL* r );
 NodoAVL* RemoveAVL (int X, NodoAVL* T );
-int Altura (NodoAVL *a);
+int AlturaAVL (NodoAVL *a);
 void FBArvore(NodoAVL *a, int *maior);
 int FBNodo(NodoAVL *a);
 NodoAVL* consultaAVL(NodoAVL *a, char *chave);
