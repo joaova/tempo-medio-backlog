@@ -283,6 +283,7 @@ NodoAVL* consultaAVL(NodoAVL *a, char *chave){
 
         printf("%s\n", auxNome);
         printf("%s\n", chave);
+        printf("%f\n", a->horas);
 
         comp2++;
 
