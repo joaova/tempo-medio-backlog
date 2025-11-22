@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
     // Variável de controle da inserção da AVL e contador de rotações
 
-    int ok = 0,rot = 0;
+    int ok = 0,rot = 0, i = 0;
 
     char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
     float horas = 0;
@@ -80,6 +80,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             {
                 
                 titulo_jogo = strtok (linha, separador); // lê o arquivo csv separando por virgulas
+
+                // O atof provavelmente tá arredondando as horas, verificar isso
                 horas = atof(strtok (NULL, separador));
 
                 // Escrever aqui o código que popula a árvore
@@ -93,21 +95,39 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             //percorre todo o arquivo lendo linha por linha
             while(fgets(linha,ROW_SIZE,entrada_usuario))
             {
+
+                i = 0;
+
+                while (linha[i] != '\0') {
+                    linha[i] = toupper(linha[i]); // Converte o caractere na posição i
+                    //a função fgets pega o \n da string, aqui eu to tirando caso ele exista
+                    if(linha[i] == '\n')
+                        linha[i] = '\0';
+                    i++;
+                }
+
+                // as comparações tão dando errado por algum motivo
+                // eu reduzi o arquivo jogador 1 pra ficar mais fácil de testar
+
                 achado_abp = consultaABP(raiz_abp, linha);
+
+                if(achado_abp)
+                    soma_abp += achado_abp->horas;
+
+
                 achado_avl = consultaAVL(raiz_avl, linha);
-        
-                soma_abp += achado_abp->horas;
-                soma_avl += achado_avl->horas;
-               
-                // Aqui não é necessário usar o strtok, porque cada nome do jogo vai estar em uma nova linha
-                // Escrever aqui o código que procura um jogo em determinada árvore
-                // Note que o nome do jogo vai estar salvo na variável 'linha'
+
+                if(achado_avl)
+                    soma_avl += achado_avl->horas;
 
                 
             }
 
+
             printf("Total de comparações ABP: %d\n", comp1);
             printf("Total de comparações AVL: %d\n", comp2);
+            printf("Total de horas pela ABP: %f\n", soma_abp);
+            printf("Total de horas pela AVL: %f\n", soma_avl);
 
             if(soma_abp == soma_avl)
                 printf("A soma das horas é: %.2f\n", soma_abp);

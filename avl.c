@@ -263,38 +263,42 @@ void FBArvore(NodoAVL *a, int *maior)
 }
 
 NodoAVL* consultaAVL(NodoAVL *a, char *chave){ 
+
+    char auxNome[100];
+
     int i = 0;
-    int j = 0;
-    char chaveUpper[100] = {0}, nomeUpper[100] = {0};
-    int cmp;
 
+    printf("---------------------------------AVL-------------------------------\n");
 
-    while (a != NULL){ 
+    while(a != NULL) {
 
-         while (chave[i] != '\0') {
-            chaveUpper[i] = toupper(chave[i]); // Converte o caractere na posição i
+        i = 0;
+
+        strcpy(auxNome, a->nome);
+
+        while (auxNome[i] != '\0') {
+            auxNome[i] = toupper(auxNome[i]); // Converte o caractere na posição i
             i++;
         }
 
-        while (a->nome[j] != '\0') {
-            nomeUpper[j] = toupper(a->nome[j]); // Converte o caractere na posição i
-            j++;
+        printf("%s\n", auxNome);
+        printf("%s\n", chave);
+
+        comp2++;
+
+        if(!strcmp(auxNome, chave)) {
+            return a;
+        } else {
+            if(strcmp(auxNome, chave) > 0)
+                a = a->esq;
+            else
+                a = a->dir;
         }
+    }
 
-        cmp = strcmp(nomeUpper, chaveUpper);
-
-        comp2++; 
-        if (cmp == 0){ 
-            return a;  
-        } else { 
-            if (cmp > 0) 
-                a = a->esq; 
-            else 
-                a = a->dir; 
-        } 
-    } 
-    return NULL;  
+    return NULL;
 }
+
 
 /*
 NodoAVL* RemoveAVL (int X, NodoAVL* T )
