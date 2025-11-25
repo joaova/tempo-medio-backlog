@@ -129,7 +129,10 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 
             }
 
-            if(soma_abp != soma_avl) 
+            printf("Soma ABP: %.2f\n", soma_abp);
+            printf("Soma AVL: %.2f\n", soma_avl);  
+            
+            if(soma_abp == soma_avl) 
             {
                 fprintf(saida,"Tempo total estimado: %.2f horas\n\n", soma_abp);
 
