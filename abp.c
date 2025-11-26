@@ -28,78 +28,9 @@ int ContaNodosABP(NodoABP *a)
 
 }
 
-void imprimeArvoreABP(NodoABP *a, int nivel)
-{
-
-    //int nivel_local = nivel;
-  
-    if (a != NULL)
-    {
-        for(int i = 0; i < nivel; i++)
-            printf("=");
-        printf("%s\n", a->nome);
-        nivel++;
-        imprimeArvoreABP(a->esq, nivel);
-        imprimeArvoreABP(a->dir, nivel);
-    }
-
-}
-
-int AchaNivel(NodoABP *a, char* nome, int nivel)
-{
-    
-    if(a == NULL)
-        return 0;
-
-    else
-    {
-
-
-        if(strcmp(a->nome, nome) == 0)
-            return nivel;
-
-        nivel++;
-
-        if(strcmp(a->nome, nome) < 0)
-        {
-            return AchaNivel(a->dir, nome, nivel);
-        }
-
-        else if(strcmp(a->nome, nome) > 0)
-        {
-            return AchaNivel(a->esq, nome, nivel);
-        }  
-
-    }
-
-}
-
-char* MenorAncestralComum(NodoABP *a, char *nomeA, char *nomeB)
-{
-    
-
-    if(a!=NULL)
-    {
-
-        if((strcmp(nomeA, a->nome) > 0) && (strcmp(nomeB, a->nome) > 0))
-        {
-            return MenorAncestralComum(a->dir, nomeA, nomeB);
-        }
-
-        else if((strcmp(nomeA, a->nome) < 0) && (strcmp(nomeB, a->nome) < 0))
-        {
-            return MenorAncestralComum(a->esq, nomeA, nomeB);
-        }  
-
-        else
-            return a->nome;
-
-    }
-
-}
-
 NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 {
+
     if (a == NULL)
     {
         a = (NodoABP *)malloc(sizeof(NodoABP));
@@ -122,33 +53,21 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 NodoABP* consultaABP(NodoABP *a, char *chave)
 {
 
-    char auxNome[100];
-
-    int i = 0;
-
     printf("---------------------------------ABP-------------------------------\n");
 
     while(a != NULL) {
 
-        i = 0;
 
-        strcpy(auxNome, a->nome);
-
-        while (auxNome[i] != '\0') {
-            auxNome[i] = toupper(auxNome[i]); // Converte o caractere na posição i
-            i++;
-        }
-
-        printf("%s\n", auxNome);
+        printf("%s\n", a->nome);
         printf("%s\n", chave);
         printf("%f\n", a->horas);
 
         comp1++;
 
-        if(!strcmp(auxNome, chave)) {
+        if(!strcmp(a->nome, chave)) {
             return a;
         } else {
-            if(strcmp(auxNome, chave) > 0)
+            if(strcmp(a->nome, chave) > 0)
                 a = a->esq;
             else
                 a = a->dir;

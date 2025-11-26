@@ -13,6 +13,7 @@
 O programa l� um arquivo texto como entrada e gera um arquivo como sa�da com o conte�do do arquivo de entrada convertido para letras min�sculas
 Para chamar, digite "exemplo entrada.txt saida.txt" */
 
+char * str_to_upper(char * str);
 
 int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv armazena as strings correspondentes aos par�mentros digitados
 {
@@ -79,10 +80,10 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 
                 titulo_jogo = strtok (linha, separador); // lê o arquivo csv separando por virgulas
 
-                // O atof provavelmente tá arredondando as horas, verificar isso
                 horas = strtof(strtok (NULL, separador), NULL);
 
-                // Escrever aqui o código que popula a árvore
+                strcpy(titulo_jogo,str_to_upper(titulo_jogo));
+
                 raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, &ok, &rot);
 
                 raiz_abp = InsereArvore(raiz_abp, titulo_jogo, horas);
@@ -95,25 +96,17 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             while(fgets(linha,ROW_SIZE,entrada_usuario))
             {
 
-                i = 0;
-
-                while (linha[i] != '\0') {
-                    linha[i] = toupper(linha[i]); // Converte o caractere na posição i
-                    //a função fgets pega o \n da string, aqui eu to tirando caso ele exista
-                    if(linha[i] == '\n')
-                        linha[i] = '\0';
-                    i++;
-                }
+                strcpy(linha,str_to_upper(linha));
 
                 // as comparações tão dando errado por algum motivo
                 // eu reduzi o arquivo jogador 1 pra ficar mais fácil de testar
+
 
                 achado_abp = consultaABP(raiz_abp, linha);
 
                 if(achado_abp)
                 {
                     soma_abp += achado_abp->horas;
-                    printf("%f\n", achado_abp->horas);
                 }
 
 
@@ -122,7 +115,6 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 if(achado_avl)
                 {
                     soma_avl += achado_avl->horas;
-                    printf("%f\n", achado_avl->horas);
                 }
                     
 
@@ -163,6 +155,21 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     }
 }
 
-//mudei algumas coisas como tinhamos falado naquele dia. fica a vontade pra testar se quiser. 
-//ainda não faz nada com o arquivo que só vai ter jogos
-//ja ta mais certo lidando com o outro e ja existe as variaveis, inicialização e etc do arquivo q nn tinha
+char * str_to_upper(char * str)
+{
+
+    int i = 0;
+
+    printf("%s\n", str);
+
+    while (str[i] != '\0') {
+        str[i] = toupper(str[i]); // Converte o caractere na posição i
+        //a função fgets pega o \n da string, aqui eu to tirando caso ele exista
+        if(str[i] == '\n')
+            str[i] = '\0';
+        i++;
+    }
+
+    return str;
+
+}

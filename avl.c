@@ -28,23 +28,6 @@ int ContaNodosAVL(NodoAVL *a)
 
 }
 
-void imprimeArvoreAVL(NodoAVL *a, int nivel)
-{
-
-    int nivel_local = nivel;
-  
-    if (a != NULL)
-    {
-        for(int i = 0; i < nivel; i++)
-            printf("=");
-        printf("%s\n", a->nome);
-        nivel_local++;
-        imprimeArvoreAVL(a->esq, nivel_local);
-        imprimeArvoreAVL(a->dir, nivel_local);
-    }
-
-}
-
 NodoAVL* rotacao_direita(NodoAVL* p) {
 
     NodoAVL *u;
@@ -264,33 +247,20 @@ void FBArvore(NodoAVL *a, int *maior)
 
 NodoAVL* consultaAVL(NodoAVL *a, char *chave){ 
 
-    char auxNome[100];
-
-    int i = 0;
-
     printf("---------------------------------AVL-------------------------------\n");
 
     while(a != NULL) {
 
-        i = 0;
-
-        strcpy(auxNome, a->nome);
-
-        while (auxNome[i] != '\0') {
-            auxNome[i] = toupper(auxNome[i]); // Converte o caractere na posição i
-            i++;
-        }
-
-        printf("%s\n", auxNome);
+        printf("%s\n", a->nome);
         printf("%s\n", chave);
         printf("%f\n", a->horas);
 
         comp2++;
 
-        if(!strcmp(auxNome, chave)) {
+        if(!strcmp(a->nome, chave)) {
             return a;
         } else {
-            if(strcmp(auxNome, chave) > 0)
+            if(strcmp(a->nome, chave) > 0)
                 a = a->esq;
             else
                 a = a->dir;
