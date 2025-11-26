@@ -10,4 +10,4 @@ Comparações: 3058
 Número de nodos: 3598
 Altura: 14
 Rotações: 1809
-Comparações: 2153
+Comparações: 2152

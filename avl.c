@@ -105,7 +105,6 @@ NodoAVL* rotacao_dupla_esquerda (NodoAVL *p) {
 
 NodoAVL* InsereAVL (NodoAVL *a, char *x, float horas, int *ok, int *rot)
 {
-
     
     /* Insere nodo em uma árvore AVL, onde A representa a raiz da árvore,
     x, a chave a ser inserida e h a altura da árvore */
@@ -121,7 +120,7 @@ NodoAVL* InsereAVL (NodoAVL *a, char *x, float horas, int *ok, int *rot)
 
     }
 
-    else if (strcmp(x, a->nome) < 0) {
+    else if (str_cmp(x, a->nome) < 0) {
 
         a->esq = InsereAVL(a->esq,x,horas,ok, rot);
         
@@ -257,10 +256,10 @@ NodoAVL* consultaAVL(NodoAVL *a, char *chave){
 
         comp2++;
 
-        if(!strcmp(a->nome, chave)) {
+        if(!str_cmp(a->nome, chave)) {
             return a;
         } else {
-            if(strcmp(a->nome, chave) > 0)
+            if(str_cmp(a->nome, chave) > 0)
                 a = a->esq;
             else
                 a = a->dir;

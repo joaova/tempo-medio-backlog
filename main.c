@@ -3,8 +3,8 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
-#include "abp.c"
 #include "abp.h"
+#include "abp.c"
 #include "avl.c"
 #include "avl.h"
 #define ROW_SIZE 100
@@ -12,8 +12,6 @@
 /* Exemplo de uso dos argumentos para main
 O programa l� um arquivo texto como entrada e gera um arquivo como sa�da com o conte�do do arquivo de entrada convertido para letras min�sculas
 Para chamar, digite "exemplo entrada.txt saida.txt" */
-
-char * str_to_upper(char * str);
 
 int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv armazena as strings correspondentes aos par�mentros digitados
 {
@@ -82,8 +80,6 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
                 horas = strtof(strtok (NULL, separador), NULL);
 
-                strcpy(titulo_jogo,str_to_upper(titulo_jogo));
-
                 raiz_avl = InsereAVL(raiz_avl, titulo_jogo, horas, &ok, &rot);
 
                 raiz_abp = InsereArvore(raiz_abp, titulo_jogo, horas);
@@ -96,11 +92,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
             while(fgets(linha,ROW_SIZE,entrada_usuario))
             {
 
-                strcpy(linha,str_to_upper(linha));
-
-                // as comparações tão dando errado por algum motivo
-                // eu reduzi o arquivo jogador 1 pra ficar mais fácil de testar
-
+                if(linha[strlen(linha)-1] == '\n')
+                    linha[strlen(linha)-1] = '\0';
 
                 achado_abp = consultaABP(raiz_abp, linha);
 
@@ -116,8 +109,6 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 {
                     soma_avl += achado_avl->horas;
                 }
-                    
-
                 
             }
 
@@ -155,21 +146,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     }
 }
 
-char * str_to_upper(char * str)
-{
 
-    int i = 0;
 
-    printf("%s\n", str);
 
-    while (str[i] != '\0') {
-        str[i] = toupper(str[i]); // Converte o caractere na posição i
-        //a função fgets pega o \n da string, aqui eu to tirando caso ele exista
-        if(str[i] == '\n')
-            str[i] = '\0';
-        i++;
-    }
 
-    return str;
-
-}

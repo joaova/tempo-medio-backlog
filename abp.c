@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "abp.h"
+#include "utils.c"
 
 int comp1 = 0;
 
@@ -40,7 +41,7 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
         a->dir = NULL;
     }
 
-    else if (strcmp(ch, a->nome) < 0)
+    else if (str_cmp(ch, a->nome) < 0)
         a->esq = InsereArvore(a->esq, ch, horas);
 
     else
@@ -64,10 +65,10 @@ NodoABP* consultaABP(NodoABP *a, char *chave)
 
         comp1++;
 
-        if(!strcmp(a->nome, chave)) {
+        if(!str_cmp(a->nome, chave)) {
             return a;
         } else {
-            if(strcmp(a->nome, chave) > 0)
+            if(str_cmp(a->nome, chave) > 0)
                 a = a->esq;
             else
                 a = a->dir;
