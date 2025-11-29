@@ -246,13 +246,14 @@ void FBArvore(NodoAVL *a, int *maior)
 
 NodoAVL* consultaAVL(NodoAVL *a, char *chave){ 
 
-    printf("---------------------------------AVL-------------------------------\n");
+    //printf("---------------------------------AVL-------------------------------\n"); teste de busca
 
     while(a != NULL) {
 
-        printf("%s\n", a->nome);
-        printf("%s\n", chave);
-        printf("%f\n", a->horas);
+        //testes de busca
+        //printf("%s\n", a->nome);
+        //printf("%s\n", chave);
+        //printf("%f\n", a->horas);
 
         comp2++;
 

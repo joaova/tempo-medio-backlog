@@ -9,24 +9,22 @@
 #include "avl.h"
 #define ROW_SIZE 100
 
-/* Exemplo de uso dos argumentos para main
-O programa l� um arquivo texto como entrada e gera um arquivo como sa�da com o conte�do do arquivo de entrada convertido para letras min�sculas
-Para chamar, digite "exemplo entrada.txt saida.txt" */
+/* O programa le dois arquivos como entrada e gera um arquivo texto como saida 
+com o conteudo especificado no enunciado do trabalho. */
 
-int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv armazena as strings correspondentes aos par�mentros digitados
+int main(int argc, char *argv[]) //argc conta o numero de parametros e argv armazena as strings correspondentes aos paramentros digitados
 {
-
-    //setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
 
     clock_t start, end; //para contar o tempo decorrido
 
+    //declaracao de ponteiros para arquivos
     FILE * entrada_dados;
     FILE * entrada_usuario;
     FILE * saida;
 
     
 
-    // Cria árvores
+    // Cria árvores e nodos para busca
     NodoAVL* raiz_avl = inicializaAVL(raiz_avl);
     NodoAVL* achado_avl = inicializaAVL(achado_avl);
 
@@ -35,16 +33,18 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
     // Variável de controle da inserção da AVL e contador de rotações
 
-    int ok = 0,rot = 0, i = 0;
+    int ok = 0, rot = 0, i = 0;
 
     char *titulo_jogo, *jogo, linha[ROW_SIZE]; // linhas a serem lidas do arquivo
     float horas = 0;
     float soma_abp = 0, soma_avl = 0;
     char *separador = ",";
 
-    //comentario
-
-    if (argc!=4)  //o numero de parametros esperado 4: nome do programa (argv[0]), nome do arq de entrada(argv[1]), nome do arq de saida(argv[2])
+    if (argc!=4)  
+    //o numero de parametros esperado 4: nome do programa (argv[0]), 
+    //nome do arq de entrada que tem os jogos e as horas(argv[1]), 
+    //nome do arquivo de entrada com os jogos que o usuario escolheu(argv[1]),
+    //nome do arq de saida(argv[3])
     {
         printf ("Numero incorreto de parâmetros.\n Para chamar o programa digite: exemplo <arq_csv> <arq_txt> <arq_saida>\n");
         return 1;
@@ -53,8 +53,8 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
     else
     {
 
-        entrada_dados = fopen (argv[1], "r"); // abre o arquivo csv para leitura -- argv[1] é o primeiro arquivo para leitura
-        entrada_usuario = fopen (argv[2], "r");
+        entrada_dados = fopen (argv[1], "r"); // abre o arquivo csv para leitura -- argv[1] eh o primeiro arquivo para leitura
+        entrada_usuario = fopen (argv[2], "r");//abre o arquivo txt para leitura -- argv[2] eh o segundo arquivo para leitura
 
         if (entrada_dados == NULL || entrada_usuario == NULL) //se não conseguiu abrir o arquivo
         {
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
         else // arquivo de entrada OK
         {
 
-            saida = fopen (argv[3], "w"); // abre o arquivo para saida -- argv[2] � o segundo par�metro ap�s o nome do arquivo.
+            saida = fopen (argv[3], "w"); // abre o arquivo para saida -- argv[3] eh o arquivo para escrita
 
             start = clock(); //inicia a contagem do tempo
             
@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
             }
 
-            printf("Numero de rotacoes: %d\n", rot);
+            //printf("Numero de rotacoes: %d\n", rot);  -- teste de rotacoes
 
             //percorre todo o arquivo lendo linha por linha
             while(fgets(linha,ROW_SIZE,entrada_usuario))
@@ -112,11 +112,13 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
                 
             }
 
-            printf("Soma ABP: %.2f\n", soma_abp);
-            printf("Soma AVL: %.2f\n", soma_avl);  
+            //printf("Soma ABP: %.2f\n", soma_abp); - teste soma de horas abp
+            //printf("Soma AVL: %.2f\n", soma_avl); - teste soma de horas avl
             
+            //verifica se as somas das horas estao iguais
             if(soma_abp == soma_avl) 
             {
+                //imprime no arquivo de saida as informacoes solicitadas
                 fprintf(saida,"Tempo total estimado: %.2f horas\n\n", soma_abp);
 
                 fprintf(saida,"================ ESTATÍSTICAS ABP ================== \n");
@@ -133,7 +135,7 @@ int main(int argc, char *argv[]) //argc conta o n�mero de par�metros e argv 
 
             }
                 
-            printf("\nArquivo %s gerado com sucesso.\n",argv[3]);
+            printf("\nArquivo %s gerado com sucesso.\n",argv[3]); //mensagem de sucesso
 
             end = clock(); // finaliza contagem do tempo
             float miliseconds = (float)(end - start) / CLOCKS_PER_SEC * 1000; //calcula o tempo decorrido

@@ -54,14 +54,14 @@ NodoABP *InsereArvore(NodoABP *a, char *ch, float horas)
 NodoABP* consultaABP(NodoABP *a, char *chave)
 {
 
-    printf("---------------------------------ABP-------------------------------\n");
+    //printf("---------------------------------ABP-------------------------------\n"); teste de busca
 
     while(a != NULL) {
 
-
-        printf("%s\n", a->nome);
-        printf("%s\n", chave);
-        printf("%f\n", a->horas);
+        //testes de busca
+        //printf("%s\n", a->nome);
+        //printf("%s\n", chave);
+        //printf("%f\n", a->horas);
 
         comp1++;
 
