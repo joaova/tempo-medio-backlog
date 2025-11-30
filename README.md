@@ -1,1 +1,3 @@
-# tempo-medio-backlog
+# Trabalho da disciplina de Estrutura de Dados (INF01203)
+
+  Este trabalho tem como objetivo a implementação de árvores binárias para o armazenamento e busca de dados assim como a análise comparativa de desempenho entre diferentes implementações de árvores binárias de busca. Como objetivo específico, utilizamos dados de um arquivo .csv contendo jogos da plataforma Steam e seus tempos médios efetivamente “jogados” pelos usuários. A partir desses dados, foram criadas árvores binárias que foram utilizadas para cálculo do tempo total necessário para completar uma lista de jogos fornecida por um usuário.
